@@ -7,10 +7,15 @@ dotenv.config();
 const app=express();
 app.use(express.json()); // Parse JSON payloads
 
+mongoose.connect(process.env.MONGO_URI, { useNewUrlParser: true, useUnifiedTopology: true })
+    .then(() => console.log('MongoDB Connected'))
+    .catch(err => console.error(err));
+
 // Routes
 app.get('/', (req, res) => {
     res.send('Welcome to the Recipe Generator !');
 });
+
 
 app.use('/api/ingredients', ingredientRoutes);
 
